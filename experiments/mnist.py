@@ -219,7 +219,7 @@ def fit_representer(model_reg_factor: float, load_path: Path, cv: int = 0) -> Re
 
 def approximation_quality(n_keep_list: list, cv: int = 0, random_seed: int = 42,
                           model_reg_factor=0.1, save_path: str = 'experiments/results/mnist/quality/',
-                          train_only=False) -> None:
+                          train_only=False, corpus_size: int = 1000) -> None:
     print(100 * '-' + '\n' + 'Welcome in the approximation quality experiment for MNIST. \n'
                              f'Settings: random_seed = {random_seed} ; cv = {cv}.\n'
           + 100 * '-')
@@ -247,9 +247,9 @@ def approximation_quality(n_keep_list: list, cv: int = 0, random_seed: int = 42,
     print(100 * '-' + '\n' + 'Now fitting the explainers. \n' + 100 * '-')
     for i, n_keep in enumerate(n_keep_list):
         print(30 * '-' + f'n_keep = {n_keep}' + 30 * '-')
-        explainers = fit_explainers(device=device, random_seed=random_seed, cv=cv, test_size=100, corpus_size=1000,
-                                    n_keep=n_keep, save_path=save_path, explainers_name=explainers_name,
-                                    train_only=train_only)
+        explainers = fit_explainers(device=device, random_seed=random_seed, cv=cv, test_size=100,
+                                    corpus_size=corpus_size, n_keep=n_keep, save_path=save_path,
+                                    explainers_name=explainers_name, train_only=train_only)
         # Print the partial results
         print(100 * '-' + '\n' + 'Results. \n' + 100 * '-')
         for explainer, explainer_name in zip(explainers, explainers_name[:-1]):
@@ -614,9 +614,9 @@ def timing_experiment() -> None:
     print(np.std(times, axis=-1))
 
 
-def main(experiment: str, cv: int) -> None:
+def main(experiment: str, cv: int, corpus_size: int) -> None:
     if experiment == 'approximation_quality':
-        approximation_quality(cv=cv, n_keep_list=[3, 5, 10, 20, 50])
+        approximation_quality(cv=cv, n_keep_list=[3, 5, 10, 20, 50], corpus_size=corpus_size)
     elif experiment == 'outlier_detection':
         outlier_detection(cv)
     elif experiment == 'jacobian_corruption':
@@ -635,5 +635,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-experiment', type=str, default='approximation_quality', help='Experiment to perform')
     parser.add_argument('-cv', type=int, default=0, help='Cross validation parameter')
+    parser.add_argument('-corpus_size', type=int, default=1000, help='Number of corpus examples')
     args = parser.parse_args()
-    main(args.experiment, args.cv)
+    main(args.experiment, args.cv, args.corpus_size)
