@@ -1,3 +1,14 @@
+# Report: Explaining Latent Representations with a Corpus of Examples
+A folder "notebooks" has been added which includes the code used to produce some of the results/plots in this report. They are organised as follows:
+```
+├── notebooks
+│   ├── figure_2.ipynb         # an illustrative example of the approach proposed in 3.2
+│   ├── geometric.ipynb        # evaluates the OSH method proposed in 3.1 and plots an illustrative example
+```
+
+
+
+
 # SimplEx - Explaining Latent Representations with a Corpus of Examples
 ![image](simplex_examples.png "Examples of SimplEx explanations")
 
