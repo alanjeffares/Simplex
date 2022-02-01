@@ -4,6 +4,8 @@ A folder "notebooks" has been added which includes the code used to produce some
 ├── notebooks
 │   ├── figure_2.ipynb         # an illustrative example of the approach proposed in 3.2
 │   ├── geometric.ipynb        # evaluates the OSH method proposed in 3.1 and plots an illustrative example
+│   ├── SimplexCombo.ipynb     # out-of-corpus explanations from section 4.2
+│   ├── rank_dist.ipynb        # analysis of hidden space distances from appendix A
 ```
 
 
